@@ -4,6 +4,8 @@ import ProblemModel from '@/model/Problem';
 import UserModel from '@/model/User';
 import dbConnect from "@/lib/dbConnect";
 import { setTimeout as sleep } from "timers/promises";
+import { Compiler } from "@/components/Compiler";
+import { log } from "console";
 
 interface ex {
 	input: string,
@@ -81,60 +83,55 @@ export async function POST(req: Request) {
 	return NextResponse.json({ status: 200, error: "", message: "Code Compiled successfully in all testcases." });
 }
 
+export const COMPILER_IDS: Record<string, string> = {
+	python: "python-3.14",
+	python3: "python-3.14",
+	c: "gcc-15",
+	"c++": "g++-15",
+	cpp: "g++-15",
+	java: "openjdk-25",
+	csharp: "dotnet-csharp-9",
+	"c#": "dotnet-csharp-9",
+	fsharp: "dotnet-fsharp-9",
+	"f#": "dotnet-fsharp-9",
+	go: "go-1.26",
+	rust: "rust-1.93",
+	php: "php-8.5",
+	ruby: "ruby-4.0",
+	haskell: "haskell-9.12",
+	typescript: "typescript-deno",
+	ts: "typescript-deno",
+};
+
+const API_KEY = process.env.VITE_COMPILER_API_KEY || '';
+
+console.log(API_KEY);
+
 const callapi = async (language: string, code: string, ex: ex) => {
-	let api: string = "https://emkc.org/api/v2/piston/execute";
-	let data;
-	if (language == "c" || language == "cpp") {
-		api = "https://api.codex.jaagrav.in";
-		data = {
-			language: language,
-			code: code,
-			input: ex.input
-		};
-	} else {
-		const ver: keyof typeof LANGUAGE_VERSIONS = language;
-		data = {
-			language: language,
-			version: LANGUAGE_VERSIONS[ver],
-			files: [
-				{
-					content: code,
-				}
-			],
-			stdin: ex.input
-		};
+	let api: string = "https://api.onlinecompiler.io/api/run-code-sync/";
+	let data = {
+		compiler: COMPILER_IDS[language.toLowerCase()],
+		code,
+		input: ex.input
 	}
+	console.log("example --- ", ex);
+	console.log("data --- ", data);
 
 	const response = await fetch(api, {
 		method: "POST",
-		headers: { 'Content-Type': 'application/json' },
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: API_KEY
+		},
 		body: JSON.stringify(data),
 	}).then(res => res.json());
 
-	if (language == 'c' || language == 'cpp') {
-		if (response.output !== "") {
-			return { status: 201, message: response.output }
-		} else if (response.error !== "") {
-			return { status: 402, message: response.error }
-		}
-		else {
-			return { status: 403, message: "Error While Fetching Data" } // server fetching error
-		}
+	console.log(response);
+
+	if (response.status == "success") {
+		return { status: 201, message: response.output }
 	}
-	else {
-		if (response.message) {
-			return { status: 401, message: response.message } // version err
-		} else if (response.run) {
-			if (response.run.stderr != "") {
-				return { status: 402, message: response.run.stderr } // compilation err
-			} else if (response.run.output != "") {
-				return { status: 201, message: response.run.output } // success
-			}
-			else {
-				return { status: 201, message: response.run.output }
-			}
-		} else {
-			return { status: 403, message: "Error While Fetching Data" } // server fetching error
-		}
+	else if (response.status == "error") {
+		return { status: 401, message: response.error }
 	}
 }

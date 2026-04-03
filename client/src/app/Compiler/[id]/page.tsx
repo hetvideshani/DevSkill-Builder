@@ -17,7 +17,7 @@ const CompilerQue = ({ params }: any) => {
 	const [problemid, setProblemId] = useState("");
 	const [submit, setSubmit] = useState(false);
 	const [email, setEmail] = useState("");
-	const [user, setUser] = useState({ email: "", username:"" });
+	const [user, setUser] = useState({ email: "", username: "" });
 	const [param, setParam] = useState(0);
 
 
@@ -85,8 +85,8 @@ const CompilerQue = ({ params }: any) => {
 
 		const response = await res.json();
 		if (response.error) {
-			if (response.status == 405) {
-				setOutput("error occurred while running your code! Sorry.\n" + response.message + "\nTestcase : \n" + response.error.input + "\n" + response.error.output);
+			if (response.status == 401) {
+				setOutput("error occurred while running your code! Sorry.\n" + response.error);
 				return;
 			}
 			if (response.status == 406) {
