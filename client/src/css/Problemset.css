@@ -1,0 +1,34 @@
+table,
+th,
+td {
+    height: 50px;
+    font-size: 17px;
+}
+
+th {
+    border-bottom: 1px solid #fff;
+    text-align: left;
+    font-weight: 500;
+}
+
+@keyframes beat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.skeleton-beat {
+    background-color: #333333 !important;
+    animation: beat 1.5s infinite ease-in-out !important;
+    padding-inline: 10px;
+}
+tr > td:hover
+{
+    color: green;
+}

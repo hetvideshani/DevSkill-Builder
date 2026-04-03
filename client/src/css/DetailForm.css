@@ -1,0 +1,16 @@
+/* styles/globals.css */
+@keyframes iconUpward {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+.animate-icon-upward {
+    animation: iconUpward 5s infinite;
+    /* Adjust duration as needed */
+}
+

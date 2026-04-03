@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* @font-face {
+  font-family: "Causten Round";
+  src: url('../../public/assets/fonts/Causten-Black.otf');
+  font-style: normal;
+} */
+
+html,
+body {
+  /* font-family: "Causten Round", sans-serif; */
+  font-family: 'Poppins', sans-serif;
+  background-color: black;
+}
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar
+{
+  display: none;
+}
+::selection{
+  background-color: rgba(85, 175, 240, 0.693);
+  color: whitesmoke;
+}
