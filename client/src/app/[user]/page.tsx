@@ -316,7 +316,7 @@ const Profile = ({ params }: any) => {
                                         textAnchor="middle"
                                         className="text-xl text-white font-semibold"
                                     >
-                                        {solved.total / problems.length * 100 || 0}
+                                        {(solved.total / problems.length * 100).toFixed(2) || 0}%
                                     </text>
 
                                 </svg>

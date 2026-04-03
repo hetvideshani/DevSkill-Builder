@@ -100,7 +100,7 @@ const DetailForm = () => {
         let u = await fetch("/api/user/checkuser");
         let result = await u.json();
         setUser(result.data);
-        
+
         setLanguageArray(result.data.languages);
     };
 
@@ -129,18 +129,18 @@ const DetailForm = () => {
     }
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // if (!validateUrl(user.social_media.portfolio)) {
-        //     return;
-        // }
-        // if (!validateSocialMediaUrl(user.social_media.linkedin)) {
-        //     return;
-        // }
-        // if (!validateSocialMediaUrl(user.social_media.github)) {
-        //     return;
-        // }
-        // if (!validateUrl(user.social_media.other)) {
-        //     return;
-        // }
+        if (user.social_media.portfolio && !validateUrl(user.social_media.portfolio)) {
+            return;
+        }
+        if (user.social_media.linkedin && !validateSocialMediaUrl(user.social_media.linkedin)) {
+            return;
+        }
+        if (user.social_media.github && !validateSocialMediaUrl(user.social_media.github)) {
+            return;
+        }
+        if (user.social_media.other && !validateUrl(user.social_media.other)) {
+            return;
+        }
 
         user.languages = languageArray;
 
@@ -188,7 +188,7 @@ const DetailForm = () => {
 
     const handleFileSubmit = async (event: any) => {
         event.preventDefault();
-        
+
         if (!file) {
             setMessage('No file selected');
             return;
