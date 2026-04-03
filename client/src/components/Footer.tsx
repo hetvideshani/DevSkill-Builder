@@ -75,7 +75,7 @@ export default function Footer() {
                         </div>
                         <div className="mb-4">
                             <h3 className="font-bold flex items-center"><i className="fa fa-envelope mr-2" aria-hidden="true"></i>Email</h3>
-                            <h3 className="ml-6">devechelon@gmail.com</h3>
+                            <h3 className="ml-6">devskillbuilder@gmail.com</h3>
                         </div>
                         <div className="mb-4">
                             <h3 className="font-bold flex items-center"><i className="fa fa-phone mr-2" aria-hidden="true"></i>Phone</h3>
