@@ -215,7 +215,7 @@ const Profile = ({ params }: any) => {
                         <div className='flex my-4 justify-between w-full'>
                             <div>
                                 <h1 className='text-xs font-light'>Programs</h1>
-                                <h1 className='text-cyan-500 font-bold text-xl'>{percent}</h1>
+                                <h1 className='text-cyan-500 font-bold text-xl'>{solved.total}</h1>
                             </div>
                             <div>
                                 <h1 className='text-xs font-light'>Connections</h1>
@@ -316,7 +316,7 @@ const Profile = ({ params }: any) => {
                                         textAnchor="middle"
                                         className="text-xl text-white font-semibold"
                                     >
-                                        {(solved.total / problems.length * 100).toFixed(2) || 0}%
+                                        {percent.toFixed(2) || 0}%
                                     </text>
 
                                 </svg>
